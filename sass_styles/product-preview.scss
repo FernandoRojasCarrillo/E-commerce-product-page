@@ -1,0 +1,123 @@
+
+@use "variables" as *;
+
+.products-preview-container {
+  width: 22.5rem;
+
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  @media screen and (max-width: $phone-media) {
+    width: 100vw;
+    gap: 0;
+    position: relative;
+  }
+}
+
+.main-image-preview {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+
+  border-radius: 1rem;
+
+  @media screen and (max-width: $phone-media) {
+    border-radius: 0;
+    width: 100%;
+    height: 18.5rem;
+  }
+}
+
+
+.next-option,
+.last-option { 
+  display: none;
+
+  @media screen and (max-width: $phone-media) {
+    display: block;
+    position: absolute;
+
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 50%;
+    border: none;
+    outline: none;
+    background: var(--white);
+    
+    inset: 0 auto 0 auto;
+    margin: auto;
+
+    & > svg {
+      position: absolute;
+      margin: auto;
+    }
+  }
+}
+
+.next-option {
+  @media screen and (max-width: $phone-media) {
+    right: 1rem;
+
+    & > svg {
+      inset: 0 auto 0 1rem;
+    }
+  }
+}
+
+.last-option {
+  @media screen and (max-width: $phone-media) {
+    left: 1rem;
+
+    & > svg {
+      inset: 0 1rem 0 auto;
+    }
+  }
+}
+
+.product-options-container {
+  height: 4.5rem;
+  display: flex;
+  gap: 1.5rem;
+
+  @media screen and (max-width: $phone-media) {
+    display: none !important;
+  }
+
+  .single-product-option {
+    height: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: .5rem;
+    overflow: hidden;
+    padding: 0;
+
+    border: none;
+    outline: none;
+
+
+    cursor: pointer;
+    transition: opacity 250ms ease;
+
+    & > img {
+      height: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+    }
+
+    &.option-selected {
+      box-shadow: 0 0 0 2px var(--orange);
+
+      img {
+        opacity: .5;
+      }
+    }
+
+    
+    &:hover,
+    &:focus {
+      opacity: .5;
+    }
+  }
+}

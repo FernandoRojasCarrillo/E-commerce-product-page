@@ -1,0 +1,183 @@
+
+@use "variables" as *;
+@use "navbar";
+@use "card-container";
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+
+body {
+  margin: 0;
+  padding: 0;
+  
+  height: 100vh;
+  width: 100vw;
+
+  display: flex;
+  gap: 4.5rem;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+
+  background: var(--white);
+  padding: 0 5rem;
+
+
+  @media screen and (max-width: $phone-media) {
+    gap: 0;
+
+    --navbar-translate: -100%;
+    &::before {
+      position: fixed;
+      content: "";
+      height: 100vh;
+      width: 100vw;
+      background: var(--soft-black);
+  
+      z-index: 10;
+  
+      transform: translateX(var(--navbar-translate));
+    }
+  }
+}
+
+
+.main-detail-card-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  height: 100vh;
+  min-height: 40rem;
+  width: 100vw;
+  background: var(--soft-black);
+
+  display: none;
+  place-content: center;
+
+
+  .detail-card-container  {
+    width: 30rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    animation: card_detail 250ms ease-out forwards;
+
+    @keyframes card_detail {
+      0% { transform: scale(.3); }
+      100% { transform: scale(1); }
+    }
+
+    .container-img-buttons {
+      width: 100%;
+      aspect-ratio: 1;
+      position: relative;
+
+      .card-main-image {
+        width: 100%;
+        border-radius: 1rem;
+      }
+
+      .btn-move-ahead,
+      .btn-move-backwards {
+        position: absolute;
+        inset: 0 auto 0 auto;
+        margin: auto;
+
+        background: var(--white);
+        border: none;
+        outline: none;
+
+        height: 2.5rem;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        cursor: pointer;
+
+
+        & > svg {
+          position: absolute;
+          margin: auto;
+          stroke: var(--black);
+          transition: stroke 250ms ease;
+        }
+
+        &:hover > svg,
+        &:focus > svg {
+          stroke: var(--orange);
+        }
+      }
+
+      .btn-move-ahead { right: -1.5rem; & svg { inset: 0 0 0 .3rem ; } }
+      .btn-move-backwards { left: -1.5rem; & svg { inset: 0 .3rem 0 0 ; }}
+
+      .close-card-btn {
+        position: absolute;
+        inset: -2rem 0 auto auto;
+
+        border: none;
+        outline: none;
+        background: transparent;
+
+        cursor: pointer;
+
+        & > svg {
+          fill: var(--white);
+          transition: fill 250ms ease;
+        }
+
+        &:hover > svg,
+        &:focus > svg {
+          fill: var(--orange);
+        }
+      }
+    }
+
+    .card-detail-options-container {
+      display: flex;
+      gap: 1.5rem;
+
+      justify-content: center;
+
+
+      .single-card-detail-option {
+        border: none;
+        outline: none;
+        padding: 0;
+        background: var(--white);
+
+        height: 4.5rem;
+        aspect-ratio: 1;
+        border-radius: .5rem;
+        overflow: hidden;
+        cursor: pointer;
+
+        &.card-selected {
+          box-shadow: 0 0 0 2px var(--orange);
+
+          & > img {
+            opacity: .5;
+          }
+        }
+
+        & > img {
+          height: 100%;
+          transition: 
+            transform 500ms ease,
+            opacity 250ms ease;
+        }
+
+        &:hover > img,
+        &:focus > img {
+          opacity: .5;
+          transform: scale(1.1);
+        }
+      }
+    }
+
+  }
+
+}

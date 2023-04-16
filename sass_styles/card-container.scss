@@ -1,0 +1,24 @@
+
+@use "variables" as *;
+@use "product-preview";
+@use "product-information";
+
+.page-container {
+
+  display: flex;
+  gap: 6rem;
+  width: 57rem;
+  height: 30rem;
+  flex: none;
+  margin: 0;
+
+  padding: 0 1rem 0 2.5rem;
+
+  @media screen and (max-width: $phone-media) {
+    width: 100vw;
+    padding: 0;
+    flex-direction: column;
+    gap: 0;
+    margin: 0;
+  }
+}
