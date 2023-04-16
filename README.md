@@ -39,8 +39,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [Github solution](https://github.com/DF27ARTS/E-commerce-product-page)
+- Live Site URL: [Live site](https://df27arts.github.io/E-commerce-product-page)
 
 ## My process
 
