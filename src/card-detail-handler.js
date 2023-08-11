@@ -1,3 +1,23 @@
+"strict";
+
+/* __________ Images __________ */
+
+const IMAGES = [
+  "./images/image-product-1.jpg",
+  "./images/image-product-2.jpg",
+  "./images/image-product-3.jpg",
+  "./images/image-product-4.jpg",
+];
+
+/* __________ Thumbnail __________ */
+
+const THUMBNAILS = [
+  "./images/image-product-1-thumbnail.jpg",
+  "./images/image-product-2-thumbnail.jpg",
+  "./images/image-product-3-thumbnail.jpg",
+  "./images/image-product-4-thumbnail.jpg",
+];
+
 /* __________ Tags __________ */
 const singleProductButtom = document.querySelectorAll(".single-product-option");
 const mainDetailCardContainer = document.querySelector(
@@ -18,12 +38,15 @@ const singleCardDetailOption = document.querySelectorAll(
 const lastOption = document.querySelector(".last-option");
 const nextOption = document.querySelector(".next-option");
 
+/* __________ Variables __________ */
+let currImgIndex = 0;
+
 /* __________ Functions __________ */
 
 // Open and close card detail
-const HandleOpenCardDetail = (e) => {
+const HandleOpenCardDetail = (index) => {
   mainDetailCardContainer.style.display = "grid";
-  HandleSingleButtonDetail(e);
+  HandleSingleButtonDetail(index);
 };
 
 const HandleCloseCardDetail = () => {
@@ -31,87 +54,59 @@ const HandleCloseCardDetail = () => {
 };
 
 const HandleMoveForwards = () => {
-  const currentCardNumber = cardMainImage.src.split("-")[2][0];
+  currImgIndex = currImgIndex === 3 ? 0 : currImgIndex + 1;
 
-  if (currentCardNumber < 4) {
-    const mainImageUlr = `${cardMainImage.src.split("-")[0]}-product-${
-      parseInt(currentCardNumber) + 1
-    }.jpg`;
+  cardMainImage.src = IMAGES[currImgIndex];
+  mainImagePreview.src = IMAGES[currImgIndex];
 
-    cardMainImage.src = mainImageUlr;
-    mainImagePreview.src = mainImageUlr;
+  // Remove class of the current selected buttons
+  document
+    .querySelector(".option-selected")
+    .classList.remove("option-selected");
+  document.querySelector(".card-selected").classList.remove("card-selected");
 
-    singleProductOption.forEach((button) =>
-      button.classList.remove("option-selected")
-    );
-    singleCardDetailOption.forEach((button) =>
-      button.classList.remove("card-selected")
-    );
-
-    singleProductOption[parseInt(currentCardNumber)].classList.add(
-      "option-selected"
-    );
-    singleCardDetailOption[parseInt(currentCardNumber)].classList.add(
-      "card-selected"
-    );
-  }
+  // Add class to the button selected
+  singleProductOption[currImgIndex].classList.add("option-selected");
+  singleCardDetailOption[currImgIndex].classList.add("card-selected");
 };
 
 const HandleMoveBackwards = () => {
-  const currentCardNumber = cardMainImage.src.split("-")[2][0];
+  currImgIndex = currImgIndex === 0 ? 3 : currImgIndex - 1;
 
-  if (currentCardNumber > 1) {
-    const mainImageUlr = `${cardMainImage.src.split("-")[0]}-product-${
-      parseInt(currentCardNumber) - 1
-    }.jpg`;
+  cardMainImage.src = IMAGES[currImgIndex];
+  mainImagePreview.src = IMAGES[currImgIndex];
 
-    cardMainImage.src = mainImageUlr;
-    mainImagePreview.src = mainImageUlr;
+  // Remove class of the current selected buttons
+  document
+    .querySelector(".option-selected")
+    .classList.remove("option-selected");
+  document.querySelector(".card-selected").classList.remove("card-selected");
 
-    singleProductOption.forEach((button) =>
-      button.classList.remove("option-selected")
-    );
-    singleCardDetailOption.forEach((button) =>
-      button.classList.remove("card-selected")
-    );
-
-    singleProductOption[parseInt(currentCardNumber) - 2].classList.add(
-      "option-selected"
-    );
-    singleCardDetailOption[parseInt(currentCardNumber) - 2].classList.add(
-      "card-selected"
-    );
-  }
+  // Add class to the button selected
+  singleProductOption[currImgIndex].classList.add("option-selected");
+  singleCardDetailOption[currImgIndex].classList.add("card-selected");
 };
 
-const HandleSingleButtonDetail = ({ target }) => {
-  const currentCardNumber = target.src.split("-")[2][0];
+const HandleSingleButtonDetail = (index) => {
+  currImgIndex = index;
 
-  const mainImageUlr = `${target.src.split("-")[0]}-product-${parseInt(
-    currentCardNumber
-  )}.jpg`;
+  cardMainImage.src = IMAGES[index];
+  mainImagePreview.src = IMAGES[index];
 
-  cardMainImage.src = mainImageUlr;
-  mainImagePreview.src = mainImageUlr;
+  // Remove class of the current selected buttons
+  document
+    .querySelector(".option-selected")
+    .classList.remove("option-selected");
+  document.querySelector(".card-selected").classList.remove("card-selected");
 
-  singleProductOption.forEach((button) =>
-    button.classList.remove("option-selected")
-  );
-  singleCardDetailOption.forEach((button) =>
-    button.classList.remove("card-selected")
-  );
-
-  singleProductOption[parseInt(currentCardNumber) - 1].classList.add(
-    "option-selected"
-  );
-  singleCardDetailOption[parseInt(currentCardNumber) - 1].classList.add(
-    "card-selected"
-  );
+  // Add class to the button selected
+  singleProductOption[index].classList.add("option-selected");
+  singleCardDetailOption[index].classList.add("card-selected");
 };
 
 /* __________ Listeners __________ */
-singleProductButtom.forEach((button) => {
-  button.addEventListener("click", (e) => HandleOpenCardDetail(e));
+singleProductButtom.forEach((button, index) => {
+  button.addEventListener("click", () => HandleOpenCardDetail(index));
 });
 
 closeCardDetailBtn.addEventListener("click", () => HandleCloseCardDetail());
@@ -119,8 +114,8 @@ closeCardDetailBtn.addEventListener("click", () => HandleCloseCardDetail());
 moveForwardsButton.addEventListener("click", () => HandleMoveForwards());
 moveBackwardsButton.addEventListener("click", () => HandleMoveBackwards());
 
-singleCardDetailOption.forEach((button) => {
-  button.addEventListener("click", (e) => HandleSingleButtonDetail(e));
+singleCardDetailOption.forEach((button, index) => {
+  button.addEventListener("click", () => HandleSingleButtonDetail(index));
 });
 
 lastOption.addEventListener("click", () => HandleMoveBackwards());
